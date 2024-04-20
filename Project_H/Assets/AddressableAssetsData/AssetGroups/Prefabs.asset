@@ -18,7 +18,37 @@ MonoBehaviour:
   m_GUID: be0fa2aee90a38148b245ce907c54239
   m_SerializeEntries:
   - m_GUID: 6d5197af647677d4691efae28c7c0c1d
-    m_Address: hero
+    m_Address: Hero
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a40e413d750cdb44b0fe888fbf55284
+    m_Address: BaseMap
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d958a226de12dfb439860648290cfca9
+    m_Address: Monster
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec721a68e8c259149b0cb5799ad2e2b8
+    m_Address: Env
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 284e6373bca8eab47b4ee2ee72f34462
+    m_Address: HeroCamp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5636621511727994289aed19f473c8d6
+    m_Address: StudyMap
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

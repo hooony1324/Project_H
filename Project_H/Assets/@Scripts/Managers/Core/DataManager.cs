@@ -1,3 +1,5 @@
+using Data;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +13,15 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
+    public Dictionary<int, Data.HeroData> HeroDic { get; private set; } = new Dictionary<int, Data.HeroData>();
+    public Dictionary<int, Data.MonsterData> MonsterDic { get; private set; } = new Dictionary<int, Data.MonsterData>();
+    public Dictionary<int, Data.EnvData> EnvDic { get; private set; } = new Dictionary<int, Data.EnvData>();
+
     public void Init()
     {
-
+        HeroDic = LoadJson<HeroDataLoader, int, Data.HeroData>("HeroData").MakeDict();
+        MonsterDic = LoadJson<MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
+        EnvDic = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();
     }
 
     private Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

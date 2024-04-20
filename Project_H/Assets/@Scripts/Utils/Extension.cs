@@ -22,17 +22,17 @@ public static class Extension
         return go != null && go.activeSelf;
     }
 
-    //public static bool IsValid(this BaseObject bo)
-    //{
-    //    if (bo == null || bo.isActiveAndEnabled == false)
-    //        return false;
+    public static bool IsValid(this BaseObject bo)
+    {
+        if (bo == null || bo.isActiveAndEnabled == false)
+            return false;
 
-    //    Creature creature = bo as Creature;
-    //    if (creature != null)
-    //        return creature.CreatureState != Define.ECreatureState.Dead;
+        Creature creature = bo as Creature;
+        if (creature != null)
+            return creature.CreatureState != Define.ECreatureState.Dead;
 
-    //    return true;
-    //}
+        return true;
+    }
 
     public static void MakeMask(this ref LayerMask mask, List<Define.ELayer> list)
     {
