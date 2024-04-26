@@ -92,7 +92,7 @@ public class Hero : Creature
         }
 
         // 1. Mosnter찾음
-        Creature creature = FindClosetInRange(HERO_SEARCH_DISTANCE, Managers.Object.Monsters) as Creature;
+        Creature creature = FindClosestInRange(HERO_SEARCH_DISTANCE, Managers.Object.Monsters) as Creature;
         if (creature != null)
         {
             Target = creature;
@@ -125,11 +125,16 @@ public class Hero : Creature
         // 1. Monster공격
         if (HeroMoveState == EHeroMoveState.TargetMonster)
         {
-            // 죽었음
+            // 몬스터 죽었으면 포기
+            if (Target.IsValid() == false)
+            {
+                HeroMoveState = EHeroMoveState.None;
+                CreatureState = ECreatureState.Move;
+                return;
+            }
 
             // 추격 or 공격
             ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, AttackDistance);
-
             return;
         }
         // 2. Env채굴

@@ -78,6 +78,36 @@ namespace Data
 
     #endregion
 
+    #region ProjectileData
+    [Serializable]
+    public class ProjectileData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string ComponentName;
+        public string ProjectileSpriteName;
+        public string PrefabLabel;
+        public float Duration;
+        public float HitSound;
+        public float ProjRange;
+        public float ProjSpeed;
+    }
+
+    [Serializable]
+    public class ProjectileDataLoader : ILoader<int, ProjectileData>
+    {
+        public List<ProjectileData> projectiles = new List<ProjectileData>();
+
+        public Dictionary<int, ProjectileData> MakeDict()
+        {
+            Dictionary<int, ProjectileData> dict = new Dictionary<int, ProjectileData>();
+            foreach (ProjectileData projectile in projectiles)
+                dict.Add(projectile.DataId, projectile);
+            return dict;
+        }
+    }
+    #endregion
 
     #region Env
     [Serializable]
@@ -102,6 +132,48 @@ namespace Data
             Dictionary<int, EnvData> dict = new Dictionary<int, EnvData>();
             foreach (EnvData env in envs)
                 dict.Add(env.DataId, env);
+            return dict;
+        }
+    }
+    #endregion
+
+
+    #region SkillData
+    [Serializable]
+    public class SkillData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string Description;
+        public int ProjectileId;
+        public string PrefabLabel;
+        public string IconLabel;
+        public string AnimName;
+        public float CoolTime;
+        public float DamageMultiplier;
+        public float Duration;
+        public float AnimImpactDuration;
+        public string CastingSound;
+        public float SkillRange;
+        public float ScaleMultiplier;
+        public int TargetCount;
+        public List<int> EffectIds = new List<int>();
+        public int NextLevelId;
+        public int AoEId;
+        public EEffectSize EffectSize;
+    }
+
+    [Serializable]
+    public class SkillDataLoader : ILoader<int, SkillData>
+    {
+        public List<SkillData> skills = new List<SkillData>();
+
+        public Dictionary<int, SkillData> MakeDict()
+        {
+            Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
+            foreach (SkillData skill in skills)
+                dict.Add(skill.DataId, skill);
             return dict;
         }
     }

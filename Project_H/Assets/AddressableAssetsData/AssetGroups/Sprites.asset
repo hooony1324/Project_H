@@ -16,7 +16,13 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: d30feab6ebd95704c905bea4016c81b5
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 98746b0d00a325c4ca55d94a17e00adc
+    m_Address: wizard_shot.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2e4e2b944bec0f6468bc77297b049f9b, type: 2}
   m_SchemaSet:

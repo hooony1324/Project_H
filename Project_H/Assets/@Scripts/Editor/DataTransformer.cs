@@ -15,12 +15,14 @@ public class DataTransformer : EditorWindow
 {
 #if UNITY_EDITOR
 
-    [MenuItem("Tools/ParceExcel %#K")]
+    [MenuItem("Tools/ParceExcelToJson %#K")]
     public static void ParseExcelDataToJson()
     {
         ParseExcelDataToJson<HeroDataLoader, HeroData>("Hero");
         ParseExcelDataToJson<MonsterDataLoader, MonsterData>("Monster");
         ParseExcelDataToJson<EnvDataLoader, EnvData>("Env");
+        ParseExcelDataToJson<SkillDataLoader, SkillData>("Skill");
+        ParseExcelDataToJson<ProjectileDataLoader, ProjectileData>("Projectile");
 
         Debug.Log("DataTransformer Completed");
     }

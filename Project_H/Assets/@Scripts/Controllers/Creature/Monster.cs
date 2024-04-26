@@ -5,12 +5,42 @@ using static Define;
 
 public class Monster : Creature
 {
+    public Data.MonsterData MonsterData { get { return (Data.MonsterData)CreatureData; } }
+
+    public override ECreatureState CreatureState
+    {
+        get { return base.CreatureState; }
+        set
+        {
+            if (_creatureState != value)
+            {
+                base.CreatureState = value;
+                switch (value)
+                {
+                    case ECreatureState.Idle:
+                        UpdateAITick = 0.5f;
+                        break;
+                    case ECreatureState.Move:
+                        UpdateAITick = 0.0f;
+                        break;
+                    case ECreatureState.Skill:
+                        UpdateAITick = 0.0f;
+                        break;
+                    case ECreatureState.Dead:
+                        UpdateAITick = 1.0f;
+                        break;
+                }
+            }
+        }
+    }
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
         ObjectType = EObjectType.Monster;
+        StartCoroutine(CoUpdateAI());
 
         return true;
     }
@@ -40,7 +70,17 @@ public class Monster : Creature
             {
                 _destPos = _initPos + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2));
                 CreatureState = ECreatureState.Move;
+                return;
             }
+        }
+
+        // Search Player
+        Creature creature = FindClosestInRange(MONSTER_SEARCH_DISTANCE, Managers.Object.Heroes, func: IsValid) as Creature;
+        if (creature != null)
+        {
+            Target = creature;
+            CreatureState = ECreatureState.Move;
+            return;
         }
 
     }
@@ -48,9 +88,65 @@ public class Monster : Creature
     {
         if (Target.IsValid() == false)
         {
+            Creature creature = FindClosestInRange(MONSTER_SEARCH_DISTANCE, Managers.Object.Heroes, func: IsValid) as Creature;
+            if (creature != null)
+            {
+                Target = creature;
+                CreatureState = ECreatureState.Move;
+                return;
+            }
 
-        }    
+            // Move
+            FindPathAndMoveToCellPos(_destPos, MONSTER_DEFAULT_MOVE_DEPTH);
+
+            if (LerpCellPosCompleted)
+            {
+                CreatureState = ECreatureState.Idle;
+                return;
+            }
+        }
+        else
+        {
+            // Chase
+            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, AttackDistance);
+
+            // 너무 멀어지면 포기.
+            if (Target.IsValid() == false)
+            {
+                Target = null;
+                _destPos = _initPos;
+                return;
+            }
+        }
     }
     #endregion
 
+    #region Battle
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDamaged(attacker, skill);
+    }
+    public override void OnDead(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDead(attacker, skill);
+
+        // Drop Item
+        //int dropItemId = MonsterData.DropItemId;
+
+        //RewardData rewardData = GetRandomReward();
+        //if (rewardData != null)
+        //{
+        //    var itemHolder = Managers.Object.Spawn<ItemHolder>(transform.position, dropItemId);
+        //    Vector2 ran = new Vector2(transform.position.x + Random.Range(-10, -15) * 0.1f, transform.position.y);
+        //    Vector2 ran2 = new Vector2(transform.position.x + Random.Range(10, 15) * 0.1f, transform.position.y);
+        //    Vector2 dropPos = Random.value < 0.5 ? ran : ran2;
+        //    itemHolder.SetInfo(0, rewardData.ItemTemplateId, dropPos);
+        //}
+
+        // Broadcast
+        //Managers.Game.BroadcastEvent(EBroadcastEventType.KillMonster, MonsterData.DataId);
+
+        Managers.Object.Despawn(this);
+    }
+    #endregion
 }

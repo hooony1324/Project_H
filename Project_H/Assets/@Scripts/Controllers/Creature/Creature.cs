@@ -2,6 +2,7 @@ using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static Define;
@@ -9,6 +10,7 @@ using static Define;
 public class Creature : BaseObject
 {
     public BaseObject Target { get; protected set; }
+    public SkillComponent Skills { get; protected set; }
     public Data.CreatureData CreatureData { get; private set; }
     float DistToTargetSqr
     {
@@ -19,6 +21,19 @@ public class Creature : BaseObject
             return distToTarget * distToTarget;
         }
     }
+
+    #region Stats
+    public float Hp { get; set; }
+    public CreatureStat MaxHp;
+    public CreatureStat Atk;
+    public CreatureStat CriRate;
+    public CreatureStat CriDamage;
+    public CreatureStat ReduceDamageRate;
+    public CreatureStat LifeStealRate;
+    public CreatureStat ThornsDamageRate; // 쏜즈
+    public CreatureStat MoveSpeed;
+    public CreatureStat AttackSpeedRate;
+    #endregion
 
     protected float AttackDistance
     {
@@ -66,8 +81,34 @@ public class Creature : BaseObject
 
         gameObject.name = $"{CreatureData.DataId}_{CreatureData.DescriptionTextID}";
 
+        // Collider
+        Collider.offset = new Vector2(CreatureData.ColliderOffsetX, CreatureData.ColliderOffsetY);
+        Collider.radius = CreatureData.ColliderRadius;
+
+        // RigidBody
+        RigidBody.mass = 0;
+
         // Spine
         SetSpineAnimation(CreatureData.SkeletonDataID, SortingLayers.CREATURE);
+
+        // Skills
+        Skills = gameObject.GetOrAddComponent<SkillComponent>();
+        Skills.SetInfo(this, CreatureData);
+
+        // Stat
+        Hp = CreatureData.MaxHp;
+        MaxHp = new CreatureStat(CreatureData.MaxHp);
+        Atk = new CreatureStat(CreatureData.Atk);
+        CriRate = new CreatureStat(CreatureData.CriRate);
+        CriDamage = new CreatureStat(CreatureData.CriDamage);
+        ReduceDamageRate = new CreatureStat(0);
+        LifeStealRate = new CreatureStat(0);
+        ThornsDamageRate = new CreatureStat(0);
+        MoveSpeed = new CreatureStat(CreatureData.MoveSpeed);
+        AttackSpeedRate = new CreatureStat(1);
+
+        // State
+        CreatureState = ECreatureState.Idle;
 
         // Map
         StartCoroutine(CoLerpToCellPos());
@@ -168,24 +209,24 @@ public class Creature : BaseObject
         if (_coWait != null)
             return;
 
-        //if (Target.IsValid() == false || Target.ObjectType == EObjectType.HeroCamp)
-        //{
-        //    CreatureState = ECreatureState.Idle;
-        //    return;
-        //}
+        if (Target.IsValid() == false || Target.ObjectType == EObjectType.HeroCamp)
+        {
+            CreatureState = ECreatureState.Idle;
+            return;
+        }
 
-        //float distToTargetSqr = DistToTargetSqr;
-        //float attackDistanceSqr = AttackDistance * AttackDistance;
-        //if (distToTargetSqr > attackDistanceSqr)
-        //{
-        //    CreatureState = ECreatureState.Idle;
-        //    return;
-        //}
+        float distToTargetSqr = DistToTargetSqr;
+        float attackDistanceSqr = AttackDistance * AttackDistance;
+        if (distToTargetSqr > attackDistanceSqr)
+        {
+            CreatureState = ECreatureState.Idle;
+            return;
+        }
 
-        //// DoSkill
-        //Skills.CurrentSkill.DoSkill();
+        // DoSkill
+        Skills.CurrentSkill.DoSkill();
 
-        //LookAtTarget(Target);
+        LookAtTarget(Target);
 
         var trackEntry = SkeletonAnim.state.GetCurrent(0);
         float delay = trackEntry.Animation.Duration;
@@ -199,7 +240,7 @@ public class Creature : BaseObject
     #endregion
 
     #region Battle
-    protected BaseObject FindClosetInRange(float range, IEnumerable<BaseObject> objs, Func<BaseObject, bool> func = null)
+    protected BaseObject FindClosestInRange(float range, IEnumerable<BaseObject> objs, Func<BaseObject, bool> func = null)
     {
         BaseObject target = null;
         float bestDistanceSqr = float.MaxValue;
@@ -251,6 +292,42 @@ public class Creature : BaseObject
             }
             return;
         }
+    }
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDamaged(attacker, skill);
+
+        if (attacker.IsValid() == false)
+            return;
+
+        Creature creature = attacker as Creature;
+        if (creature == null)
+            return;
+        
+        float finalDamage = creature.Atk.Value;
+        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
+
+        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform, false);
+
+        if (Hp <= 0)
+        {
+            OnDead(attacker, skill);
+            CreatureState = ECreatureState.Dead;
+            return;
+        }
+
+        // 스킬에 따른 Effect 적용
+        //if (skill.SkillData.EffectIds != null)
+        //    Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill, skill);
+
+        // AOE
+        //if (skill != null && skill.SkillData.AoEId != 0)
+        //    skill.GenerateAoE(transform.position);
+    }
+
+    public override void OnDead(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDead(attacker, skill);
     }
     #endregion
 

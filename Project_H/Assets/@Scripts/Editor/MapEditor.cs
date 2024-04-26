@@ -16,7 +16,7 @@ public class MapEditor : MonoBehaviour
 {
 #if UNITY_EDITOR
     // % Ctrl, # Shift, & Alt
-    [MenuItem("Tools/GenerateMap %#m")]
+    [MenuItem("Tools/GenerateMapCollisionData %#m")]
     private static void GenerateMap()
     {
         GameObject[] gameObjects = Selection.gameObjects;

@@ -16,7 +16,7 @@ public class GameScene : BaseScene
         Managers.Map.LoadMap("StudyMap");
 
         HeroCamp camp = Managers.Object.Spawn<HeroCamp>(Vector3.zero, 0);
-        Hero hero = Managers.Object.Spawn<Hero>(Vector3.zero, HERO_KNIGHT_ID);
+        Hero hero = Managers.Object.Spawn<Hero>(Vector3.zero, HERO_WIZARD_ID);
         Monster monster = Managers.Object.Spawn<Monster>(Vector3.zero, MONSTER_BEAR_ID);
         //Env env = Managers.Object.Spawn<Env>(Vector3.zero, ENV_TREE1_ID);
 
