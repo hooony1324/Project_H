@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
+[Serializable]
 public class CreatureStat
 {
     public float BaseValue { get; private set; }

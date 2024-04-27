@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using static Define;
 
@@ -122,6 +123,36 @@ public class MapManager
     }
 
     #region Helpers
+    public List<T> GatherObjects<T>(Vector3 pos, float rangeX, float rangeY) where T : BaseObject
+    {
+        HashSet<T> objects = new HashSet<T>();
+
+        Vector3Int left = World2Cell(pos + new Vector3(-rangeX, 0));
+        Vector3Int right = World2Cell(pos + new Vector3(+rangeX, 0));
+        Vector3Int bottom = World2Cell(pos + new Vector3(0, -rangeY));
+        Vector3Int top = World2Cell(pos + new Vector3(0, +rangeY));
+        int minX = left.x;
+        int maxX = right.x;
+        int minY = bottom.y;
+        int maxY = top.y;
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, 0);
+
+                // 타입에 맞는 리스트 리턴
+                T obj = GetObject(tilePos) as T;
+                if (obj == null)
+                    continue;
+
+                objects.Add(obj);
+            }
+        }
+
+        return objects.ToList();
+    }
     public bool CanGo(BaseObject self, Vector3 worldPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
     {
         return CanGo(self, World2Cell(worldPos), ignoreObjects, ignoreSemiWall);

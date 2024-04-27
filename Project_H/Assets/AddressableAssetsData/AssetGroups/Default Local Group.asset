@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 4c7fbb231ff4fdb4c88977b4cfeaf0d9
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 01fbff2339e28c34a98aa1d0bf6bbb22
+    m_Address: Assets/@Resources/SpellIndicator/Prefabs/SpellIndicator.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2e4e2b944bec0f6468bc77297b049f9b, type: 2}
   m_SchemaSet:

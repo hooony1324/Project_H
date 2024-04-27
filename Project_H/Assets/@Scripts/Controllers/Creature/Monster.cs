@@ -119,6 +119,23 @@ public class Monster : Creature
             }
         }
     }
+    protected override void UpdateSkill()
+    {
+        base.UpdateSkill();
+
+        if (Target.IsValid() == false)
+        {
+            Target = null;
+            _destPos = _initPos;
+            CreatureState = ECreatureState.Move;
+            return;
+        }
+    }
+
+    protected override void UpdateDead()
+    {
+
+    }
     #endregion
 
     #region Battle

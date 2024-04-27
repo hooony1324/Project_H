@@ -102,7 +102,14 @@ public class Hero : Creature
         }
 
         // 2. Env찾음
-
+        Env env = FindClosestInRange(HERO_SEARCH_DISTANCE, Managers.Object.Envs) as Env;
+        if (env != null)
+        {
+            Target = env;
+            CreatureState = ECreatureState.Move;
+            HeroMoveState = EHeroMoveState.CollectEnv;
+            return;
+        }
 
         // 3. HeroCamp로 모이기
         if (NeedArrange)

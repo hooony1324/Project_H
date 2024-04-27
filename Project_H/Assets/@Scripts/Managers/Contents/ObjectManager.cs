@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 using static Unity.Burst.Intrinsics.X86.Avx;
@@ -142,6 +144,84 @@ public class ObjectManager
         //}
 
         Managers.Resource.Destroy(obj.gameObject);
+    }
+    #endregion
+
+    #region Skill 판정
+    public List<Creature> FindConeRangeTargets(Creature owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
+    {
+        HashSet<Creature> targets = new HashSet<Creature>();
+        HashSet<Creature> ret = new HashSet<Creature>();
+
+        EObjectType targetType = Util.DetermineTargetType(owner.ObjectType, isAllies);
+
+        if (targetType == EObjectType.Monster)
+        {
+            var objs = Managers.Map.GatherObjects<Monster>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+        else if (targetType == EObjectType.Hero)
+        {
+            var objs = Managers.Map.GatherObjects<Hero>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+
+        foreach (var target in targets)
+        {
+            // 거리안에 있는지 확인
+            var targetPos = target.transform.position;
+            float distance = Vector3.Distance(targetPos, owner.transform.position);
+
+            if (distance > range)
+                continue;
+
+            if (angleRange != 360)
+            {
+                BaseObject ownerTarget = (owner as Creature).Target;
+
+                // 부채꼴 모양 각도 계산
+                float dot = Vector3.Dot((targetPos - owner.transform.position).normalized, dir.normalized);
+                float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
+
+                if (degree > angleRange / 2f)
+                    continue;
+            }
+
+            ret.Add(target);
+        }
+
+        return ret.ToList();
+    }
+
+    public List<Creature> FindCircleRangeTargets(Creature owner, Vector3 startPos, float range, bool isAllies = false)
+    {
+        HashSet<Creature> targets = new HashSet<Creature>();
+        HashSet<Creature> ret = new HashSet<Creature>();
+
+        EObjectType targetType = Util.DetermineTargetType(owner.ObjectType, isAllies);
+
+        if (targetType == EObjectType.Monster)
+        {
+            var objs = Managers.Map.GatherObjects<Monster>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+        else if (targetType == EObjectType.Hero)
+        {
+            var objs = Managers.Map.GatherObjects<Hero>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+
+        foreach (var target in targets)
+        {
+            // 거리안에 있는지 확인
+            var targetPos = target.transform.position;
+            float distSqr = (targetPos - startPos).sqrMagnitude;
+
+            if (distSqr < range * range)
+                ret.Add(target);
+        }
+
+        return ret.ToList();
     }
     #endregion
 }
