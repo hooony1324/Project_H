@@ -12,6 +12,7 @@ public class Creature : BaseObject
     public BaseObject Target { get; protected set; }
     public SkillComponent Skills { get; protected set; }
     public Data.CreatureData CreatureData { get; private set; }
+    public EffectComponent Effects { get; set; }
     float DistToTargetSqr
     {
         get
@@ -109,6 +110,10 @@ public class Creature : BaseObject
 
         // State
         CreatureState = ECreatureState.Idle;
+
+        // Effect
+        Effects = gameObject.AddComponent<EffectComponent>();
+        Effects.SetInfo(this);
 
         // Map
         StartCoroutine(CoLerpToCellPos());
@@ -240,6 +245,31 @@ public class Creature : BaseObject
     #endregion
 
     #region Battle
+    public void HandleDotDamage(EffectBase effect)
+    {
+        if (effect == null)
+            return;
+        if (effect.Owner.IsValid() == false)
+            return;
+
+        // TEMP
+        float damage = (Hp * effect.EffectData.PercentAdd) + effect.EffectData.Amount;
+        if (effect.EffectData.ClassName.Contains("Heal"))
+            damage *= -1f;
+
+        float finalDamage = Mathf.Round(damage);
+        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
+
+        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform, false);
+
+        // TODO : OnDamaged 통합
+        if (Hp <= 0)
+        {
+            OnDead(effect.Owner, effect.Skill);
+            CreatureState = ECreatureState.Dead;
+            return;
+        }
+    }
     protected BaseObject FindClosestInRange(float range, IEnumerable<BaseObject> objs, Func<BaseObject, bool> func = null)
     {
         BaseObject target = null;
@@ -317,8 +347,8 @@ public class Creature : BaseObject
         }
 
         // 스킬에 따른 Effect 적용
-        //if (skill.SkillData.EffectIds != null)
-        //    Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill, skill);
+        if (skill.SkillData.EffectIds != null)
+            Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill, skill);
 
         // AOE
         //if (skill != null && skill.SkillData.AoEId != 0)

@@ -178,4 +178,66 @@ namespace Data
         }
     }
     #endregion
+
+    #region EffectData
+    [Serializable]
+    public class EffectData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string DescriptionTextID;
+        public string SkeletonDataID;
+        public string IconLabel;
+        public string SoundLabel;
+        public float Amount;
+        public float PercentAdd;
+        public float PercentMult;
+        public float TickTime;
+        public float TickCount;
+        public EEffectType EffectType;
+    }
+
+    [Serializable]
+    public class EffectDataLoader : ILoader<int, EffectData>
+    {
+        public List<EffectData> effects = new List<EffectData>();
+        public Dictionary<int, EffectData> MakeDict()
+        {
+            Dictionary<int, EffectData> dict = new Dictionary<int, EffectData>();
+            foreach (EffectData effect in effects)
+                dict.Add(effect.DataId, effect);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region AoEData
+    [Serializable]
+    public class AoEData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string SkeletonDataID;
+        public string SoundLabel;
+        public float Duration;
+        public List<int> AllyEffects = new List<int>();
+        public List<int> EnemyEffects = new List<int>();
+        public string AnimName;
+    }
+
+    [Serializable]
+    public class AoEDataLoader : ILoader<int, AoEData>
+    {
+        public List<AoEData> aoes = new List<AoEData>();
+        public Dictionary<int, AoEData> MakeDict()
+        {
+            Dictionary<int, AoEData> dict = new Dictionary<int, AoEData>();
+            foreach (AoEData aoe in aoes)
+                dict.Add(aoe.DataId, aoe);
+            return dict;
+        }
+    }
+    #endregion
 }

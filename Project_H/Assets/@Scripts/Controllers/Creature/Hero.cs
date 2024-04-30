@@ -144,7 +144,31 @@ public class Hero : Creature
             ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, AttackDistance);
             return;
         }
+
         // 2. Env채굴
+        if (HeroMoveState == EHeroMoveState.CollectEnv)
+        {
+            // 몬스터가 있으면 포기.
+            Creature creature = FindClosestInRange(HERO_SEARCH_DISTANCE, Managers.Object.Monsters) as Creature;
+            if (creature != null)
+            {
+                Target = creature;
+                HeroMoveState = EHeroMoveState.TargetMonster;
+                CreatureState = ECreatureState.Move;
+                return;
+            }
+
+            // Env 이미 채집했으면 포기.
+            if (Target.IsValid() == false)
+            {
+                HeroMoveState = EHeroMoveState.None;
+                CreatureState = ECreatureState.Move;
+                return;
+            }
+
+            ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, AttackDistance);
+            return;
+        }
 
         // 3. HeroCamp로 모이기
         if (HeroMoveState == EHeroMoveState.ReturnToCamp)

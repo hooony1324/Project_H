@@ -13,4 +13,9 @@ public class AreaAirbone : AreaSkill
         if (_indicator != null)
             _indicator.SetInfo(owner, SkillData, Define.EIndicatorType.Cone);
     }
+
+    public override void DoSkill()
+    {
+        base.DoSkill();
+    }
 }
