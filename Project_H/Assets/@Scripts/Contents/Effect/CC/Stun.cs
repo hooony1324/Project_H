@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stun : MonoBehaviour
+
+public class Stun : CCBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override bool Init()
     {
-        
+        if (base.Init() == false)
+            return false;
+
+        EffectType = Define.EEffectType.CrowdControl;
+        return true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -65,6 +65,30 @@ public class Env : BaseObject
 		}
 	}
 
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
+    {
+		if (EnvState == Define.EEnvState.Dead)
+			return;
 
+        base.OnDamaged(attacker, skill);
 
+		float finalDamage = 1;
+		EnvState = EEnvState.OnDamaged;
+
+		Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
+
+		Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
+		if (Hp <= 0)
+			OnDead(attacker, skill);
+    }
+    public override void OnDead(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDead(attacker, skill);
+
+        EnvState = EEnvState.Dead;
+
+        // TODO : Drop Item	
+
+        Managers.Object.Despawn(this);
+    }
 }

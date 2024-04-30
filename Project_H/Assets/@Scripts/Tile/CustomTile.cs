@@ -8,9 +8,7 @@ using UnityEditor;
 
 public class CustomTile : Tile
 {
-    [Space]
-    [Space]
-    [Header("For Designer's")]
+    [Space] [Space] [Header("For Designer's")]
     public Define.EObjectType ObjectType;
     public int DataId;
     public string Name;

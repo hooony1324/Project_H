@@ -116,6 +116,8 @@ public class Creature : BaseObject
         Effects.SetInfo(this);
 
         // Map
+        Collider.isTrigger = true;
+        RigidBody.simulated = false;
         StartCoroutine(CoLerpToCellPos());
     }
 
@@ -134,7 +136,7 @@ public class Creature : BaseObject
                 PlayAnimation(0, AnimName.IDLE, true);
                 break;
             case ECreatureState.Skill:
-                PlayAnimation(0, AnimName.ATTACK_A, true);
+                //PlayAnimation(0, AnimName.ATTACK_A, true);
                 break;
             case ECreatureState.Move:
                 PlayAnimation(0, AnimName.MOVE, true);

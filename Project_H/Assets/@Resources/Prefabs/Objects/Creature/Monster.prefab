@@ -138,6 +138,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e57170337ee5b04890410b19878062b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp:
+    _value: 0
+    StatModifiers: []
+  Atk:
+    _value: 0
+    StatModifiers: []
+  CriRate:
+    _value: 0
+    StatModifiers: []
+  CriDamage:
+    _value: 0
+    StatModifiers: []
+  ReduceDamageRate:
+    _value: 0
+    StatModifiers: []
+  LifeStealRate:
+    _value: 0
+    StatModifiers: []
+  ThornsDamageRate:
+    _value: 0
+    StatModifiers: []
+  MoveSpeed:
+    _value: 0
+    StatModifiers: []
+  AttackSpeedRate:
+    _value: 0
+    StatModifiers: []
 --- !u!50 &2055065751809685856
 Rigidbody2D:
   serializedVersion: 4

@@ -48,7 +48,7 @@ public class HeroCamp : BaseObject
         transform.position = newPos;
 
         // Map Transition
-        //Managers.Map.StageTransition.CheckMapChanged(newPos);
+        Managers.Map.StageTransition.CheckMapChanged(newPos);
     }
 
     private void HandleOnMoveDirChanged(Vector2 dir)
