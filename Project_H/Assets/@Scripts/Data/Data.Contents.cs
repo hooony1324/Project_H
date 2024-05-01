@@ -240,4 +240,34 @@ namespace Data
         }
     }
     #endregion
+
+    #region NPC
+    [Serializable]
+    public class NpcData
+    {
+        public int DataId;
+        public string Name;
+        public string DescriptionTextID;
+        public ENpcType NpcType;
+        public string PrefabLabel;
+        public string SpriteName;
+        public string SkeletonDataID;
+        public int QuestDataId;
+    }
+
+    [Serializable]
+    public class NpcDataLoader : ILoader<int, NpcData>
+    {
+        public List<NpcData> creatures = new List<NpcData>();
+        public Dictionary<int, NpcData> MakeDict()
+        {
+            Dictionary<int, NpcData> dict = new Dictionary<int, NpcData>();
+            foreach (NpcData creature in creatures)
+                dict.Add(creature.DataId, creature);
+
+            return dict;
+        }
+
+    }
+    #endregion
 }

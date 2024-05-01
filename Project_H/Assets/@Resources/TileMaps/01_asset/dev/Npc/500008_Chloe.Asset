@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285f7be516f497b4195285bd5539a136, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f48a2c861e23314aadce0a3d8530a93, type: 3}
   m_Name: 500008_Chloe
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 14e18905cc4531a478d5729ac881a22d, type: 3}

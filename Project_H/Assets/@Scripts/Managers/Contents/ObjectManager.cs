@@ -14,7 +14,7 @@ public class ObjectManager
     public HashSet<Projectile> Projectiles { get; } = new HashSet<Projectile>();
 
     public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
-
+    public HashSet<Npc> Npcs { get; } = new HashSet<Npc>();
 
     #region Roots
     public Transform GetRootTransform(string name)
@@ -31,6 +31,7 @@ public class ObjectManager
     public Transform EnvRoot { get { return GetRootTransform("@Envs"); } }
     public Transform ProjectileRoot { get { return GetRootTransform("@Projectiles"); } }
     public Transform EffectRoot { get { return GetRootTransform("@Effects"); } }
+    public Transform NpcRoot { get { return GetRootTransform("@Npc"); } }
 
     public void ShowDamageFont(Vector2 position, float damage, Transform parent, bool isCritical = false)
     {
@@ -91,15 +92,15 @@ public class ObjectManager
         {
             Camp = go.GetComponent<HeroCamp>();
         }
-        //else if (obj.ObjectType == EObjectType.Npc)
-        //{
-        //    obj.transform.parent = NpcRoot;
+        else if (obj.ObjectType == EObjectType.Npc)
+        {
+            obj.transform.parent = NpcRoot;
 
-        //    Npc npc = go.GetOrAddComponent<Npc>();
-        //    Npcs.Add(npc);
+            Npc npc = go.GetOrAddComponent<Npc>();
+            Npcs.Add(npc);
 
-        //    npc.SetInfo(templateID);
-        //}
+            npc.SetInfo(templateID);
+        }
         //else if (obj.ObjectType == EObjectType.ItemHolder)
         //{
         //    obj.transform.parent = ItemHolderRoot;
@@ -134,20 +135,20 @@ public class ObjectManager
             Env env = obj as Env;
             Envs.Remove(env);
         }
-        //else if (obj.ObjectType == EObjectType.Effect)
-        //{
-        //    EffectBase effect = obj as EffectBase;
-        //    Effects.Remove(effect);
-        //}
+        else if (obj.ObjectType == EObjectType.Effect)
+        {
+            EffectBase effect = obj as EffectBase;
+            Effects.Remove(effect);
+        }
         else if (obj.ObjectType == EObjectType.HeroCamp)
         {
             Camp = null;
         }
-        //else if (obj.ObjectType == EObjectType.Npc)
-        //{
-        //    Npc npc = obj as Npc;
-        //    Npcs.Remove(npc);
-        //}
+        else if (obj.ObjectType == EObjectType.Npc)
+        {
+            Npc npc = obj as Npc;
+            Npcs.Remove(npc);
+        }
         //else if (obj.ObjectType == EObjectType.ItemHolder)
         //{
         //    ItemHolder itemHolder = obj as ItemHolder;

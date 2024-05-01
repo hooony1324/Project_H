@@ -16,6 +16,8 @@ public class GameScene : BaseScene
         Managers.Map.LoadMap("BaseMap");
         Managers.Map.StageTransition.SetInfo();
 
+        // -100, -66
+        // 22, 10
         var cellPos = Managers.Map.World2Cell(new Vector3(-100, -66));
 
         HeroCamp camp = Managers.Object.Spawn<HeroCamp>(Vector3.zero, 0);
