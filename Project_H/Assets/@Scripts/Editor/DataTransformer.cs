@@ -15,6 +15,21 @@ public class DataTransformer : EditorWindow
 {
 #if UNITY_EDITOR
 
+    [MenuItem("Tools/RemoveSaveData")]
+    public static void RemoveSaveData()
+    {
+        string path = Application.persistentDataPath + "SaveData.json";
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log("SaveFile Deleted");
+        }
+        else
+        {
+            Debug.Log("No SaveFile Detected");
+        }
+    }
+
     [MenuItem("Tools/ParceExcelToJson %#K")]
     public static void ParseExcelDataToJson()
     {
@@ -26,6 +41,14 @@ public class DataTransformer : EditorWindow
         ParseExcelDataToJson<EffectDataLoader, EffectData>("Effect");
         ParseExcelDataToJson<AoEDataLoader, AoEData>("AoE");
         ParseExcelDataToJson<NpcDataLoader, NpcData>("Npc");
+        ParseExcelDataToJson<HeroInfoDataLoader, HeroInfoData>("HeroInfo");
+        ParseExcelDataToJson<TextDataLoader, TextData>("Text");
+
+        ParseExcelDataToJson<ItemDataLoader<EquipmentData>, EquipmentData>("Item_Equipment");
+        ParseExcelDataToJson<ItemDataLoader<ConsumableData>, ConsumableData>("Item_Consumable");
+
+        ParseExcelDataToJson<DropTableDataLoader, DropTableData_Internal>("DropTable");
+        ParseExcelDataToJson<QuestDataLoader, QuestData>("Quest");
 
         Debug.Log("DataTransformer Completed");
     }

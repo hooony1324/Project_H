@@ -27,11 +27,16 @@ public class GameScene : BaseScene
         Managers.Map.MoveTo(hero, cellPos, true);
         //Monster monster = Managers.Object.Spawn<Monster>(Vector3.zero, MONSTER_BEAR_ID);
 
-        Managers.UI.ShowBaseUI<UI_Joystick>();
-
         CameraController camera = Camera.main.GetOrAddComponent<CameraController>();
         camera.Target = camp;
 
+        Managers.UI.ShowBaseUI<UI_Joystick>();
+
+        UI_GameScene sceneUI = Managers.UI.ShowSceneUI<UI_GameScene>();
+        sceneUI.GetComponent<Canvas>().sortingOrder = 1;
+        sceneUI.SetInfo();
+
+        Managers.UI.CacheAllPopups();
         return true;
     }
 

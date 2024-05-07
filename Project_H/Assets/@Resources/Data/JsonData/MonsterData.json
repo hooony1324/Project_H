@@ -1,6 +1,7 @@
 {
   "monsters": [
     {
+      "DropItemId": 400000,
       "DataId": 202001,
       "DescriptionTextID": "슬라임",
       "PrefabLabel": "MonsterPrefab",
@@ -23,6 +24,7 @@
       "SkillBId": 0
     },
     {
+      "DropItemId": 400000,
       "DataId": 202002,
       "DescriptionTextID": "일반거미",
       "PrefabLabel": "MonsterPrefab",
@@ -45,6 +47,7 @@
       "SkillBId": 0
     },
     {
+      "DropItemId": 400000,
       "DataId": 202003,
       "DescriptionTextID": "희귀거미",
       "PrefabLabel": "MonsterPrefab",
@@ -67,6 +70,7 @@
       "SkillBId": 0
     },
     {
+      "DropItemId": 400000,
       "DataId": 202004,
       "DescriptionTextID": "나무맨",
       "PrefabLabel": "MonsterPrefab",
@@ -89,6 +93,7 @@
       "SkillBId": 0
     },
     {
+      "DropItemId": 400000,
       "DataId": 202005,
       "DescriptionTextID": "활 든 고블린",
       "PrefabLabel": "MonsterPrefab",
@@ -111,6 +116,7 @@
       "SkillBId": 0
     },
     {
+      "DropItemId": 400000,
       "DataId": 202006,
       "DescriptionTextID": "곰",
       "PrefabLabel": "MonsterPrefab",

@@ -13,42 +13,42 @@ public class QuestInteraction : INpcInteraction
     {
         _owner = owner;
 
-        //if (Managers.Quest.AllQuests.TryGetValue(owner.Data.QuestDataId, out _quest) == false)
-        //    return;
+        if (Managers.Quest.AllQuests.TryGetValue(owner.Data.QuestDataId, out _quest) == false)
+            return;
     }
 
     public bool CanInteract()
     {
-        //if (_quest == null)
-        //    return false;
-        //if (_quest.State == EQuestState.Rewarded)
-        //    return false;
+        if (_quest == null)
+            return false;
+        if (_quest.State == EQuestState.Rewarded)
+            return false;
 
         return true;
     }
     public void HandleOnClickEvent()
     {
         Debug.Log("OnClickEvent : QuestInteraction.cs");
-        //QuestTask questTask = _quest.GetCurrentTask();
-        //if (questTask == null)
-        //    return;
+        QuestTask questTask = _quest.GetCurrentTask();
+        if (questTask == null)
+            return;
 
-        //switch (questTask.TaskData.ObjectiveType)
-        //{
-        //    case EQuestObjectiveType.SpendMeat:
-        //    case EQuestObjectiveType.EarnMeat:
+        switch (questTask.TaskData.ObjectiveType)
+        {
+            case EQuestObjectiveType.SpendMeat:
+            case EQuestObjectiveType.EarnMeat:
 
-        //        _quest.State = EQuestState.Processing;
-        //        if (Managers.Game.SpendResource(EResourceType.Meat, questTask.TaskData.ObjectiveCount) == false)
-        //        {
-        //            Debug.Log("Meat 부족");
-        //        }
-        //        break;
+                _quest.State = EQuestState.Processing;
+                if (Managers.Game.SpendResource(EResourceType.Meat, questTask.TaskData.ObjectiveCount) == false)
+                {
+                    Debug.Log("Meat 부족");
+                }
+                break;
 
-        //    case EQuestObjectiveType.KillMonster:
-        //        break;
-        //    case EQuestObjectiveType.ClearDungeon:
-        //        break;
-        //}
+            case EQuestObjectiveType.KillMonster:
+                break;
+            case EQuestObjectiveType.ClearDungeon:
+                break;
+        }
     }
 }

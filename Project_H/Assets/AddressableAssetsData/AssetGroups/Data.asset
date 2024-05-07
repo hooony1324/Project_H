@@ -23,30 +23,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 63417a6be665a4d4092450a0a016b718
-    m_Address: MonsterData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c8fb9b7e3e096524cb0f93806dfd0c06
-    m_Address: ProjectileData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 83f1c32319b08e14fb29efc35e450488
-    m_Address: SkillData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e3b65a275af58204b86ba535c0df9bf7
-    m_Address: AoEData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 81d450a5ac0577f4ebb040ef11e195fc
     m_Address: HeroData
     m_ReadOnly: 0
@@ -65,8 +41,74 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf5ca341553df8f4db84024634594031
+    m_Address: NpcData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54332c88db299d742af603f38a1ba41e
+    m_Address: TextData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee1a0a6ba67539c419f2782a7e143321
+    m_Address: HeroInfoData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1b192b89e409fc4c93c2df7afad4f32
+    m_Address: Item_EquipmentData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a904c88d4c848f04ebc99f91a58bdfd5
     m_Address: BaseMapCollision
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3e6a166462da514d997f21d1c0fa64e
+    m_Address: Item_ConsumableData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a0a55ed72a93e74db15a6198a7e8d1b
+    m_Address: DropTableData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba8c819e17f6bcd47b584075ecc95313
+    m_Address: QuestData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3b65a275af58204b86ba535c0df9bf7
+    m_Address: AoEData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83f1c32319b08e14fb29efc35e450488
+    m_Address: SkillData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8fb9b7e3e096524cb0f93806dfd0c06
+    m_Address: ProjectileData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63417a6be665a4d4092450a0a016b718
+    m_Address: MonsterData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

@@ -13,11 +13,17 @@ public class Managers : MonoBehaviour
     private GameManager _game = new GameManager();
     private ObjectManager _object = new ObjectManager();
     private MapManager _map = new MapManager();
+    private HeroManager _hero = new HeroManager();
+    private InventoryManager _inventory = new InventoryManager();
+    private QuestManager _quest = new QuestManager();
 
 
     public static GameManager Game { get { return Instance?._game; } }
     public static ObjectManager Object { get { return Instance?._object; } }
     public static MapManager Map { get { return Instance?._map; } }
+    public static HeroManager Hero { get { return Instance?._hero; } }
+    public static InventoryManager Inventory { get { return Instance?._inventory; } }
+    public static QuestManager Quest { get { return Instance?._quest; } }
     #endregion
 
     #region Core
@@ -49,21 +55,21 @@ public class Managers : MonoBehaviour
 
     public static string GetText(string textId)
     {
-        //switch (_language)
-        //{
-        //    case Define.ELanguage.Korean:
-        //        return Managers.Data.TextDic[textId].KOR;
-        //    case Define.ELanguage.English:
-        //        break;
-        //    case Define.ELanguage.French:
-        //        break;
-        //    case Define.ELanguage.SimplifiedChinese:
-        //        break;
-        //    case Define.ELanguage.TraditionalChinese:
-        //        break;
-        //    case Define.ELanguage.Japanese:
-        //        break;
-        //}
+        switch (_language)
+        {
+            case Define.ELanguage.Korean:
+                return Managers.Data.TextDic[textId].KOR;
+            case Define.ELanguage.English:
+                break;
+            case Define.ELanguage.French:
+                break;
+            case Define.ELanguage.SimplifiedChinese:
+                break;
+            case Define.ELanguage.TraditionalChinese:
+                break;
+            case Define.ELanguage.Japanese:
+                break;
+        }
 
         return "";
     }
@@ -86,7 +92,7 @@ public class Managers : MonoBehaviour
             // 초기화
             s_instance = go.GetComponent<Managers>();
 
-            //s_instance._quest.Init();
+            s_instance._quest.Init();
         }
     }
 

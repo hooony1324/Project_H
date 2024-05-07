@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
+
 namespace Data
 {
     #region CreatureData
@@ -33,32 +34,11 @@ namespace Data
     }
     #endregion
 
-    #region HeroData
-    [Serializable]
-    public class HeroData : CreatureData
-    {
-    }
-
-    [Serializable]
-    public class HeroDataLoader : ILoader<int, HeroData>
-    {
-        public List<HeroData> heros = new List<HeroData>();
-        public Dictionary<int, HeroData> MakeDict()
-        {
-            Dictionary<int, HeroData> dict = new Dictionary<int, HeroData>();
-            foreach (HeroData hero in heros)
-            {
-                dict.Add(hero.DataId, hero);
-            }
-            return dict;
-        }
-    }
-    #endregion
-
     #region MonsterData
     [Serializable]
     public class MonsterData : CreatureData
     {
+        public int DropItemId;
     }
 
     [Serializable]
@@ -69,13 +49,99 @@ namespace Data
         {
             Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
             foreach (MonsterData monster in monsters)
-            {
                 dict.Add(monster.DataId, monster);
-            }
             return dict;
         }
     }
+    #endregion
 
+    #region HeroData
+    [Serializable]
+    public class HeroData : CreatureData
+    {
+    }
+
+    [Serializable]
+    public class HeroDataLoader : ILoader<int, HeroData>
+    {
+        public List<HeroData> heroes = new List<HeroData>();
+        public Dictionary<int, HeroData> MakeDict()
+        {
+            Dictionary<int, HeroData> dict = new Dictionary<int, HeroData>();
+            foreach (HeroData hero in heroes)
+                dict.Add(hero.DataId, hero);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region HeroInfoData
+    [Serializable]
+    public class HeroInfoData
+    {
+        public int DataId;
+        public string NameTextId;
+        public string DescriptionTextId;
+        public string Rarity;
+        public float GachaSpawnWeight;
+        public float GachaWeight;
+        public int GachaExpCount;
+        public string IconImage;
+    }
+
+    [Serializable]
+    public class HeroInfoDataLoader : ILoader<int, HeroInfoData>
+    {
+        public List<HeroInfoData> heroInfo = new List<HeroInfoData>();
+        public Dictionary<int, HeroInfoData> MakeDict()
+        {
+            Dictionary<int, HeroInfoData> dict = new Dictionary<int, HeroInfoData>();
+            foreach (HeroInfoData info in heroInfo)
+                dict.Add(info.DataId, info);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region SkillData
+    [Serializable]
+    public class SkillData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string Description;
+        public int ProjectileId;
+        public string PrefabLabel;
+        public string IconLabel;
+        public string AnimName;
+        public float CoolTime;
+        public float DamageMultiplier;
+        public float Duration;
+        public float AnimImpactDuration;
+        public string CastingSound;
+        public float SkillRange;
+        public float ScaleMultiplier;
+        public int TargetCount;
+        public List<int> EffectIds = new List<int>();
+        public int NextLevelId;
+        public int AoEId;
+        public EEffectSize EffectSize;
+    }
+
+    [Serializable]
+    public class SkillDataLoader : ILoader<int, SkillData>
+    {
+        public List<SkillData> skills = new List<SkillData>();
+
+        public Dictionary<int, SkillData> MakeDict()
+        {
+            Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
+            foreach (SkillData skill in skills)
+                dict.Add(skill.DataId, skill);
+            return dict;
+        }
+    }
     #endregion
 
     #region ProjectileData
@@ -132,48 +198,6 @@ namespace Data
             Dictionary<int, EnvData> dict = new Dictionary<int, EnvData>();
             foreach (EnvData env in envs)
                 dict.Add(env.DataId, env);
-            return dict;
-        }
-    }
-    #endregion
-
-
-    #region SkillData
-    [Serializable]
-    public class SkillData
-    {
-        public int DataId;
-        public string Name;
-        public string ClassName;
-        public string Description;
-        public int ProjectileId;
-        public string PrefabLabel;
-        public string IconLabel;
-        public string AnimName;
-        public float CoolTime;
-        public float DamageMultiplier;
-        public float Duration;
-        public float AnimImpactDuration;
-        public string CastingSound;
-        public float SkillRange;
-        public float ScaleMultiplier;
-        public int TargetCount;
-        public List<int> EffectIds = new List<int>();
-        public int NextLevelId;
-        public int AoEId;
-        public EEffectSize EffectSize;
-    }
-
-    [Serializable]
-    public class SkillDataLoader : ILoader<int, SkillData>
-    {
-        public List<SkillData> skills = new List<SkillData>();
-
-        public Dictionary<int, SkillData> MakeDict()
-        {
-            Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
-            foreach (SkillData skill in skills)
-                dict.Add(skill.DataId, skill);
             return dict;
         }
     }
@@ -268,6 +292,224 @@ namespace Data
             return dict;
         }
 
+    }
+    #endregion
+
+    #region TextData
+    [Serializable]
+    public class TextData
+    {
+        public string DataId;
+        public string KOR;
+    }
+
+    [Serializable]
+    public class TextDataLoader : ILoader<string, TextData>
+    {
+        public List<TextData> texts = new List<TextData>();
+        public Dictionary<string, TextData> MakeDict()
+        {
+            Dictionary<string, TextData> dict = new Dictionary<string, TextData>();
+            foreach (TextData text in texts)
+                dict.Add(text.DataId, text);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region Item
+    [Serializable]
+    public class BaseData
+    {
+        public int DataId;
+    }
+
+    [Serializable]
+    public class ItemData : BaseData
+    {
+        public string Name;
+        public EItemGroupType ItemGroupType;
+        public EItemType Type;
+        public EItemSubType SubType;
+        public EItemGrade Grade;
+        public int MaxStack;
+    }
+
+    [Serializable]
+    public class EquipmentData : ItemData
+    {
+        public int Damage;
+        public int Defence;
+        public int Speed;
+    }
+
+    [Serializable]
+    public class ConsumableData : ItemData
+    {
+        public double Value;
+        public int CoolTime;
+    }
+
+    [Serializable]
+    public class ItemDataLoader<T> : ILoader<int, T> where T : BaseData
+    {
+        public List<T> items = new List<T>();
+
+        public Dictionary<int, T> MakeDict()
+        {
+            Dictionary<int, T> dict = new Dictionary<int, T>();
+            foreach (T item in items)
+                dict.Add(item.DataId, item);
+
+            return dict;
+        }
+    }
+    #endregion
+
+    #region DropTable
+
+    public class RewardData
+    {
+        public int Probability; // 100분율
+        public int ItemTemplateId;
+        // public int Count;
+    }
+
+    [Serializable]
+    public class DropTableData_Internal
+    {
+        public int DataId;
+        public int RewardExp;
+        public int Prob1;
+        public int Item1;
+        public int Prob2;
+        public int Item2;
+        public int Prob3;
+        public int Item3;
+        public int Prob4;
+        public int Item4;
+        public int Prob5;
+        public int Item5;
+    }
+
+    [Serializable]
+    public class DropTableData
+    {
+        public int DataId;
+        public int RewardExp;
+        public List<RewardData> Rewards = new List<RewardData>();
+    }
+
+    [Serializable]
+    public class DropTableDataLoader : ILoader<int, DropTableData>
+    {
+        public List<DropTableData_Internal> dropTables = new List<DropTableData_Internal>();
+
+        public Dictionary<int, DropTableData> MakeDict()
+        {
+            Dictionary<int, DropTableData> dict = new Dictionary<int, DropTableData>();
+
+            foreach (DropTableData_Internal tempData in dropTables)
+            {
+                DropTableData data = new DropTableData()
+                {
+                    DataId = tempData.DataId,
+                    RewardExp = tempData.RewardExp,
+                };
+
+                if (tempData.Item1 > 0)
+                {
+                    data.Rewards.Add(new RewardData()
+                    {
+                        Probability = tempData.Prob1,
+                        ItemTemplateId = tempData.Item1,
+                    });
+                }
+
+                if (tempData.Item2 > 0)
+                {
+                    data.Rewards.Add(new RewardData()
+                    {
+                        Probability = tempData.Prob2,
+                        ItemTemplateId = tempData.Item2,
+                    });
+                }
+
+                if (tempData.Item3 > 0)
+                {
+                    data.Rewards.Add(new RewardData()
+                    {
+                        Probability = tempData.Prob3,
+                        ItemTemplateId = tempData.Item3,
+                    });
+                }
+
+                if (tempData.Item4 > 0)
+                {
+                    data.Rewards.Add(new RewardData()
+                    {
+                        Probability = tempData.Prob4,
+                        ItemTemplateId = tempData.Item4,
+                    });
+                }
+
+                if (tempData.Item5 > 0)
+                {
+                    data.Rewards.Add(new RewardData()
+                    {
+                        Probability = tempData.Prob5,
+                        ItemTemplateId = tempData.Item5,
+                    });
+                }
+
+                dict.Add(tempData.DataId, data);
+            }
+
+            return dict;
+        }
+    }
+    #endregion
+
+    #region QuestData
+
+    [Serializable]
+    public class QuestData
+    {
+        public int DataId;
+        public string Name;
+        public string DescriptionTextId;
+        public EQuestPeriodType QuestPeriodType;
+        public List<QuestTaskData> QuestTasks = new List<QuestTaskData>();
+        public List<QuestRewardData> Rewards = new List<QuestRewardData>();
+    }
+
+    [Serializable]
+    public class QuestTaskData
+    {
+        public EQuestObjectiveType ObjectiveType;
+        public int ObjectiveDataId;
+        public int ObjectiveCount;
+    }
+
+    [Serializable]
+    public class QuestRewardData
+    {
+        public EQuestRewardType RewardType;
+        public int RewardDataId;
+        public int RewardCount;
+    }
+
+    [Serializable]
+    public class QuestDataLoader : ILoader<int, QuestData>
+    {
+        public List<QuestData> quests = new List<QuestData>();
+        public Dictionary<int, QuestData> MakeDict()
+        {
+            Dictionary<int, QuestData> dict = new Dictionary<int, QuestData>();
+            foreach (QuestData quest in quests)
+                dict.Add(quest.DataId, quest);
+            return dict;
+        }
     }
     #endregion
 }

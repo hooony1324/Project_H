@@ -23,6 +23,48 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a09269c96b34e5c43bb6a6bf249f5313
+    m_Address: UI_NpcInteraction
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 462305752af5d8641a7741af10848a45
+    m_Address: UI_GameScene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 960a2d55ee223764d8c770e02495cd06
+    m_Address: UI_HeroesList_HeroItem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 178794cb084e6b84190638145caff1b9
+    m_Address: UI_HeroInfoPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2762e915fc6e0104f85221898795266b
+    m_Address: UI_HeroesListPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9bb5e468f88de043b46f1fccc1c962f
+    m_Address: UI_StageItem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e242c6a6cfa8f34ab13332f1d9693ee
+    m_Address: UI_WaypointPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2e4e2b944bec0f6468bc77297b049f9b, type: 2}
   m_SchemaSet:
